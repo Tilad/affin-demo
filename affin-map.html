@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Affin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0F0C08">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Affin">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="app/vendor/maplibre-gl.css" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; height:100%; background:#0F0C08; overscroll-behavior:none; }
+  body { position:fixed; inset:0; overflow:hidden; -webkit-user-select:none; user-select:none;
+    -webkit-tap-highlight-color:transparent; font-family:'Inter',system-ui,sans-serif; }
+  button, input, textarea { font:inherit; }
+  .noscroll::-webkit-scrollbar { display:none; }
+  .noscroll { -ms-overflow-style:none; scrollbar-width:none; }
+  #root { position:absolute; inset:0; }
+
+  #splash { position:absolute; inset:0; z-index:100; background:#0F0C08;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+    transition:opacity .4s; }
+  #splash .logo { font-family:'Caveat',cursive; font-weight:700; font-size:64px; color:#F2EBD9; }
+  #splash .sub { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:3px;
+    text-transform:uppercase; color:#FF5820; }
+  #splash.gone { opacity:0; pointer-events:none; }
+
+  #errbox { display:none; position:absolute; left:12px; right:12px; bottom:100px; z-index:200;
+    background:rgba(60,20,10,.95); border:1px solid rgba(255,88,32,.5); border-radius:12px;
+    color:#F2EBD9; font-family:'JetBrains Mono',monospace; font-size:10px; line-height:1.5;
+    padding:10px 12px; max-height:180px; overflow:auto; }
+
+  .maplibregl-ctrl-bottom-left { bottom:88px; }
+  .maplibregl-ctrl-attrib { background:rgba(15,12,8,.55)!important; border-radius:8px;
+    font-family:'JetBrains Mono',monospace; font-size:9px; }
+  .maplibregl-ctrl-attrib a { color:#7A6D55!important; }
+  .maplibregl-ctrl-attrib-button { filter:invert(.8); }
+  #map canvas, .maplibregl-canvas { outline:none; }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+<div id="splash">
+  <div class="logo">Affin</div>
+  <div class="sub">сквозной прототип</div>
+</div>
+<div id="errbox"></div>
+
+<script>
+  // локальные аватарки вместо pravatar (id → путь), tokens.js читает через __R
+  window.__resources = {};
+  ['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','marina','mikhail','self5']
+    .forEach(id => { window.__resources[id] = 'app/avatars/' + id + '.png'; });
+
+  window.onerror = (msg, src, line) => {
+    const el = document.getElementById('errbox');
+    el.style.display = 'block';
+    el.textContent += msg + ' @ ' + (src || '').split('/').pop() + ':' + line + '\n';
+  };
+
+  if ('serviceWorker' in navigator && window.isSecureContext)
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+<script src="app/vendor/react.js"></script>
+<script src="app/vendor/react-dom.js"></script>
+<script src="app/vendor/maplibre-gl.js"></script>
+<script src="app/vendor/babel.js"></script>
+<script type="text/babel" src="app/screens/tokens.js"></script>
+<script type="text/babel" src="app/screens/tabbar.js"></script>
+<script type="text/babel" src="app/screens/geo-map.jsx"></script>
+<script type="text/babel" src="app/screens/card.js"></script>
+<script type="text/babel" src="app/screens/map.js"></script>
+<script type="text/babel" src="app/screens/meet.js"></script>
+<script type="text/babel" src="app/screens/result.js"></script>
+<script type="text/babel" src="app/screens/event.js"></script>
+<script type="text/babel" src="app/screens/cardpicker.js"></script>
+<script type="text/babel" src="app/screens/profile.js"></script>
+<script type="text/babel" src="app/screens/proto.js"></script>
+<script type="text/babel">
+  const { PrototypeApp } = window;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    <div style={{position:'absolute', inset:0}}>
+      <PrototypeApp/>
+    </div>
+  );
+  requestAnimationFrame(() => setTimeout(() => {
+    document.getElementById('splash').classList.add('gone');
+  }, 350));
+</script>
+</body>
+</html>
