@@ -111,12 +111,10 @@ function MapHeader({ accent = T.accent, style = 'context', onFilters, visible: v
         {/* одна пилюля: «На карту | QR» — зеркально правой «событие | фильтр» */}
         <div style={{
           ...surface,
-          height:40, padding: selfPlaced ? '0 4px' : '0 4px 0 14px', borderRadius:20,
+          height:40, padding: selfPlaced ? '0 6px 0 4px' : '0 14px 0 4px', borderRadius:20,
           display:'flex', alignItems:'center', gap:8,
           flexShrink:0, minWidth:0,
         }}>
-          {StatusAvatar}
-          <div style={{width:1, height:20, background:T.divide, flexShrink:0}}/>
           <button onClick={onQr} aria-label="мой QR и сканер" style={{
             border:'none', background:'transparent', cursor:'pointer',
             width:32, height:32, borderRadius:12, padding:0, flexShrink:0,
@@ -129,6 +127,8 @@ function MapHeader({ accent = T.accent, style = 'context', onFilters, visible: v
               <path d="M14 14h3v3M21 14v7h-7"/>
             </svg>
           </button>
+          <div style={{width:1, height:20, background:T.divide, flexShrink:0}}/>
+          {StatusAvatar}
         </div>
         <div style={{flex:1}}/>
         {FiltersBtn}
