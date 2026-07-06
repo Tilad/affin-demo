@@ -28,7 +28,7 @@ const T = {
   stripRing:  '#1B1610',               // ring color that matches strip bg (avatar cutouts)
   deviceBg:   '#0A0805',               // backdrop behind the phone screen
   serif:     "'Playfair Display', Georgia, serif",
-  body:      "'Kalam', cursive",
+  body:      "'Neucha', 'Kalam', sans-serif",
   sans:      "'Inter', system-ui, sans-serif",
   mono:      "'JetBrains Mono', monospace",
   hand:      "'Caveat', cursive",
