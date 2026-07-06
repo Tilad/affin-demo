@@ -1091,6 +1091,7 @@ function ProfileOverlay({ person, accent, onClose }) {
       onMouseDown={down} onMouseMove={move} onMouseUp={up} onMouseLeave={up}
       style={{
         position:'fixed', inset:0, zIndex:120,
+        paddingTop:'env(safe-area-inset-top)', paddingBottom:'env(safe-area-inset-bottom)',
         background:T.bg, animation:'profileSlideIn 0.3s cubic-bezier(0.22, 0.9, 0.32, 1)',
         touchAction:'pan-y', willChange:'transform',
         boxShadow:'-20px 0 60px rgba(0,0,0,0.45)',
