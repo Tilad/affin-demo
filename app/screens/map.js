@@ -106,7 +106,7 @@ function MapHeader({ accent = T.accent, style = 'context', onFilters, visible: v
   ];
 
   return (
-    <div style={{position:'absolute', top:14, left:0, right:0, zIndex:10}}>
+    <div style={{position:'absolute', top:'calc(14px + var(--sat))', left:0, right:0, zIndex:10}}>
       <div style={{padding:'8px 14px', display:'flex', alignItems:'center', gap:8}}>
         {/* одна пилюля: «На карту | QR» — зеркально правой «событие | фильтр» */}
         <div style={{
@@ -1091,7 +1091,7 @@ function ProfileOverlay({ person, accent, onClose }) {
       onMouseDown={down} onMouseMove={move} onMouseUp={up} onMouseLeave={up}
       style={{
         position:'fixed', inset:0, zIndex:120,
-        paddingTop:'env(safe-area-inset-top)', paddingBottom:'env(safe-area-inset-bottom)',
+        paddingBottom:'var(--sab)',
         background:T.bg, animation:'profileSlideIn 0.3s cubic-bezier(0.22, 0.9, 0.32, 1)',
         touchAction:'pan-y', willChange:'transform',
         boxShadow:'-20px 0 60px rgba(0,0,0,0.45)',
@@ -1109,7 +1109,7 @@ function ProfileOverlay({ person, accent, onClose }) {
 function SwipeBanner({ count, accent, onDismiss }) {
   return (
     <div style={{
-      position:'absolute', top:14, left:14, right:14, zIndex:60,
+      position:'absolute', top:'calc(14px + var(--sat))', left:14, right:14, zIndex:60,
       padding:'12px 14px', borderRadius:14,
       background:T.glassHi, backdropFilter:'blur(14px)',
       border:`1px solid ${accent}55`,
@@ -1480,6 +1480,9 @@ function MapScreen({ variant = 'A', threshold, setThreshold, visible = true, acc
       <Map threshold={threshold} accent={accent} setThreshold={setThreshold} eventStyle={eventStyle} labelStyle={labelStyle} colorMode={colorMode} onPerson={onPersonTap || setSelectedPerson} onCluster={onCluster} clusterCount={clusterCount} onSelfTap={onGeoPickerToggle} hideEvent={hideEvent || geoPicker} district={district} onEventTap={() => setEventOpen(true)} onEvent2Tap={() => setEvent2Open(true)} selfHidden={!selfVisible || !selfPlaced} panApi={panApi}/>
       <MapHeader accent={accent} style={headerStyle} onFilters={() => setFilters(true)} onEventTap={() => { recenterToEvent(); setEventOpen(true); }}
         selfPlaced={selfPlaced} myCard={myCard} onAddSelf={() => setPlacing(true)} onQr={() => setQrShare(true)}/>
+      {/* скрим под статус-бар: на iOS часы читаемы поверх светлой карты */}
+      <div style={{position:'absolute', top:0, left:0, right:0, height:'calc(var(--sat) + 34px)', zIndex:9,
+        pointerEvents:'none', background:'linear-gradient(to bottom, rgba(15,12,8,0.5), rgba(15,12,8,0))'}}/>
       <RecenterFab accent={accent} pulsing={pulsing} onClick={() => { recenterToEvent(); setPulsing(true); setTimeout(()=>setPulsing(false), 700); }}/>
       {qrShare && (
         <QRShareSheet accent={accent} onClose={() => setQrShare(false)}
@@ -1502,7 +1505,7 @@ function MapScreen({ variant = 'A', threshold, setThreshold, visible = true, acc
           </div>
 
           {/* подсказка сверху */}
-          <div style={{position:'absolute', top:64, left:'50%', transform:'translateX(-50%)', zIndex:13,
+          <div style={{position:'absolute', top:'calc(64px + var(--sat))', left:'50%', transform:'translateX(-50%)', zIndex:13,
             padding:'7px 14px', borderRadius:14, pointerEvents:'none',
             background:T.glass, backdropFilter:'blur(10px)', border:`1px solid ${T.divide}`}}>
             <span style={{fontFamily:T.body, fontSize:13.5, color:T.ink, fontStyle:'italic'}}>двигай карту — поставь себя, где хочешь</span>
@@ -1701,7 +1704,7 @@ function SwipeStack({ accent = T.accent, onOpenProfile }) {
       onTouchStart={onDown} onTouchMove={onMove} onTouchEnd={onUp} onTouchCancel={onUp}>
 
       {/* header */}
-      <div style={{position:'absolute', top:14, left:0, right:0, zIndex:10, padding:'8px 18px', textAlign:'center'}}>
+      <div style={{position:'absolute', top:'calc(14px + var(--sat))', left:0, right:0, zIndex:10, padding:'8px 18px', textAlign:'center'}}>
         <div style={{fontFamily:T.mono, fontSize:9, color:T.soft, letterSpacing:1.6, textTransform:'uppercase'}}>рядом на Депо</div>
         <div style={{fontFamily:T.serif, fontSize:17, fontWeight:600, color:T.ink, marginTop:1}}>{(idx % deck.length) + 1} / {deck.length} · листай вверх</div>
       </div>

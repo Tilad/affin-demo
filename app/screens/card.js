@@ -87,7 +87,7 @@ function AchStrip({ ach = CARD_ACH, accent = T.accent, onOpen, compact }) {
 function AchievementsPanel({ ach = CARD_ACH, person = MARINA, accent = T.accent, onClose }) {
   const earned = ach.filter(a => a.earned).length;
   return (
-    <div style={{position:'absolute',inset:0,zIndex:80,background:T.bg,paddingTop:16,display:'flex',flexDirection:'column'}}>
+    <div style={{position:'absolute',inset:0,zIndex:80,background:T.bg,paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column'}}>
       <div style={{padding:'10px 16px 10px',display:'flex',alignItems:'center',gap:12,flexShrink:0,borderBottom:`1px solid ${T.divide}`}}>
         <button onClick={onClose} style={{
           width:36,height:36,borderRadius:11,border:`1px solid ${T.divide}`,
@@ -214,7 +214,7 @@ function PhotoViewer({ photos = [], start = 0, name, accent = T.accent, onClose 
       onMouseDown={onDown} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp}
       onTouchStart={onDown} onTouchMove={onMove} onTouchEnd={onUp}>
       {/* top bar */}
-      <div style={{position:'absolute',top:0,left:0,right:0,zIndex:3,paddingTop:16,
+      <div style={{position:'absolute',top:0,left:0,right:0,zIndex:3,paddingTop:'calc(16px + var(--sat))',
         display:'flex',alignItems:'center',justifyContent:'space-between',padding:'54px 14px 0'}}>
         <div style={{fontFamily:T.mono,fontSize:11,fontWeight:700,color:'#fff',letterSpacing:1,
           padding:'5px 11px',borderRadius:20,background:'rgba(0,0,0,0.4)',backdropFilter:'blur(6px)'}}>{i+1} / {n}</div>
@@ -835,7 +835,7 @@ function CardScreen({ hierarchy = 'B', ctaVariant = 'A', viVariant = 'C', tier =
   return (
     <div style={{
       position:'absolute',inset:0,background:T.bg,
-      paddingTop:20,
+      paddingTop:'calc(20px + var(--sat))',
       display:'flex',flexDirection:'column',
     }}>
       {/* Top bar */}

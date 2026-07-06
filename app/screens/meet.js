@@ -19,7 +19,7 @@ function MatchScreen({ accent = T.accent, animate = true, onContinue, onLater, o
   return (
     <div style={{
       position:'absolute',inset:0,background:T.bg,
-      paddingTop:12,
+      paddingTop:'calc(12px + var(--sat))',
       display:'flex',flexDirection:'column',overflow:'hidden',
     }}>
       {/* Close */}
@@ -209,7 +209,7 @@ function ChatScreen({ accent = T.accent, stage = 'mid', onStartMeeting, onBack, 
   return (
     <div style={{
       position:'absolute',inset:0,background:T.bg,
-      paddingTop:16,display:'flex',flexDirection:'column',
+      paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column',
     }}>
       {/* Header */}
       <div style={{
@@ -457,7 +457,7 @@ function MeetingPreScan({ accent = T.accent, onScanned, onCancel }) {
   return (
     <div style={{
       position:'absolute',inset:0,background:T.bg,
-      paddingTop:16,display:'flex',flexDirection:'column',
+      paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column',
     }}>
       <div style={{padding:'10px 14px 0',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
         <button onClick={onCancel} style={{
@@ -525,7 +525,7 @@ function MeetingRunning({ accent = T.accent, secondsLeft = 712, onFinish, onCanc
   return (
     <div style={{
       position:'absolute',inset:0,background:T.bg,
-      paddingTop:16,display:'flex',flexDirection:'column',
+      paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column',
     }}>
       <div style={{padding:'10px 14px 0',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
         <div style={{

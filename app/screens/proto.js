@@ -11,7 +11,7 @@ const { T, MARINA, MIKHAIL, PEOPLE, MY_CARDS, MY_TARIFF,
 // ── minimal Chats-list tab ───────────────────────────────
 function ChatsList({ accent = T.accent, threads, onOpen }) {
   return (
-    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:16,display:'flex',flexDirection:'column'}}>
+    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column'}}>
       <div style={{padding:'12px 18px 10px',flexShrink:0}}>
         <div style={{fontFamily:T.mono,fontSize:9,color:T.soft,letterSpacing:1.8,textTransform:'uppercase'}}>чаты</div>
         <div style={{fontFamily:T.serif,fontSize:26,fontWeight:700,color:T.ink,lineHeight:1.1,marginTop:2,fontStyle:'italic'}}>Разговоры</div>
@@ -168,7 +168,7 @@ function QRScanScreen({ accent = T.accent, onScanned, onCancel, eventName = 'Min
 // ── Event page — placeholder until described ──────────────
 function EventPageScreen({ accent = T.accent, onBack, onToMap }) {
   return (
-    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:16,display:'flex',flexDirection:'column'}}>
+    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column'}}>
       <div style={{padding:'8px 12px 10px',display:'flex',alignItems:'center',gap:6,flexShrink:0}}>
         <button onClick={onBack} style={{width:36,height:36,borderRadius:11,border:'none',background:'transparent',
           display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>
@@ -208,7 +208,7 @@ function ExpectationsStep({ accent = T.accent, eventName = 'Mining Expo', value,
     onChange({ ...value, text: text.trim() ? `${text.replace(/[,\s]*$/,'')}, ${s}` : s });
   };
   return (
-    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:16,display:'flex',flexDirection:'column'}}>
+    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column'}}>
       <div style={{padding:'14px 20px 6px',flexShrink:0}}>
         <div style={{display:'inline-flex',alignItems:'center',gap:7,padding:'4px 11px',borderRadius:16,
           background:'rgba(63,184,124,0.12)',border:'1px solid rgba(63,184,124,0.3)',marginBottom:14}}>

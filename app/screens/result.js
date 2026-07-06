@@ -28,7 +28,7 @@ function ResultScreen({ accent = T.accent, stage = 'confirm', onMet, onSkip, onE
     return (
       <div style={{
         position:'absolute',inset:0,background:T.bg,
-        paddingTop:16,display:'flex',flexDirection:'column',
+        paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column',
       }}>
         <div style={{padding:'14px 22px 0',textAlign:'center'}}>
           <div style={{fontFamily:T.mono,fontSize:10,color:accent,letterSpacing:2.4,textTransform:'uppercase'}}>15 минут прошло</div>
@@ -86,7 +86,7 @@ function ResultScreen({ accent = T.accent, stage = 'confirm', onMet, onSkip, onE
   return (
     <div style={{
       position:'absolute',inset:0,background:T.bg,
-      paddingTop:16,display:'flex',flexDirection:'column',
+      paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column',
     }}>
       <div style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'0 26px'}}>
         {/* success check */}
@@ -150,7 +150,7 @@ function ResultExchange({ accent = T.accent, p = MIKHAIL, onExchange }) {
   return (
     <div style={{
       position:'absolute',inset:0,background:T.bg,
-      paddingTop:16,display:'flex',flexDirection:'column',
+      paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column',
     }}>
       <div style={{padding:'14px 22px 4px',textAlign:'center'}}>
         <div style={{fontFamily:T.mono,fontSize:10,color:accent,letterSpacing:2.4,textTransform:'uppercase'}}>рады, что получилось</div>

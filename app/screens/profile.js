@@ -22,7 +22,7 @@ function ProfileMeScreen({ accent = T.accent, onEdit, onOpenCard, onSettings, on
   ];
 
   return (
-    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:16,display:'flex',flexDirection:'column'}}>
+    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column'}}>
       {/* top bar */}
       <div style={{padding:'10px 18px 6px',display:'flex',alignItems:'center',justifyContent:'space-between',flexShrink:0}}>
         <div style={{fontFamily:T.hand,fontSize:26,color:accent,fontWeight:700,lineHeight:1}}>Affin</div>
@@ -244,7 +244,7 @@ function InboxScreen({ accent = T.accent, onOpenPerson, onReciprocate }) {
   };
 
   return (
-    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:16,display:'flex',flexDirection:'column'}}>
+    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column'}}>
       <div style={{padding:'12px 18px 10px',flexShrink:0}}>
         <div style={{fontFamily:T.mono,fontSize:9,color:T.soft,letterSpacing:1.8,textTransform:'uppercase'}}>заявки</div>
         <div style={{fontFamily:T.serif,fontSize:26,fontWeight:700,color:T.ink,lineHeight:1.1,marginTop:2,fontStyle:'italic'}}>Тобой заинтересовались</div>
@@ -339,7 +339,7 @@ function SettingsScreen({ accent = T.accent, onBack, onBilling }) {
   const [nNearby, setNNearby] = React.useState(false);
 
   return (
-    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:16,display:'flex',flexDirection:'column'}}>
+    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column'}}>
       <div style={{padding:'8px 12px 10px',display:'flex',alignItems:'center',gap:6,flexShrink:0,borderBottom:`1px solid ${T.divide}`}}>
         <button onClick={onBack} style={{width:36,height:36,borderRadius:11,border:'none',background:'transparent',
           display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>
@@ -471,7 +471,7 @@ function EditProfileScreen({ accent = T.accent, onBack, onBilling }) {
   const Chips = EditChips; // модульный компонент — см. ниже (локальный пересоздавался и терял фокус инпута)
 
   return (
-    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:16,display:'flex',flexDirection:'column'}}>
+    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column'}}>
       <div style={{padding:'8px 12px 10px',display:'flex',alignItems:'center',justifyContent:'space-between',flexShrink:0,borderBottom:`1px solid ${T.divide}`}}>
         <button onClick={onBack} style={{width:36,height:36,borderRadius:11,border:'none',background:'transparent',
           display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>
@@ -564,7 +564,7 @@ function BillingScreen({ accent = T.accent, onBack }) {
   ];
 
   return (
-    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:16,display:'flex',flexDirection:'column'}}>
+    <div style={{position:'absolute',inset:0,background:T.bg,paddingTop:'calc(16px + var(--sat))',display:'flex',flexDirection:'column'}}>
       <div style={{padding:'8px 12px 10px',display:'flex',alignItems:'center',gap:6,flexShrink:0,borderBottom:`1px solid ${T.divide}`}}>
         <button onClick={onBack} style={{width:36,height:36,borderRadius:11,border:'none',background:'transparent',
           display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>

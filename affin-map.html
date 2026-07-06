@@ -18,16 +18,16 @@
 <link href="app/vendor/maplibre-gl.css" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
-  html, body { margin:0; padding:0; height:100%; background:#0F0C08; overscroll-behavior:none; }
+  html, body { margin:0; padding:0; height:100%; background:#18140E; overscroll-behavior:none; }
   body { position:fixed; inset:0; overflow:hidden; -webkit-user-select:none; user-select:none;
     -webkit-tap-highlight-color:transparent; font-family:'Inter',system-ui,sans-serif; }
   button, input, textarea { font:inherit; }
   .noscroll::-webkit-scrollbar { display:none; }
   .noscroll { -ms-overflow-style:none; scrollbar-width:none; }
-  /* iOS PWA: вьюпорт включает статус-бар и home-индикатор — прижимаем контент в safe area.
-     На Android env() = 0, ничего не меняется. */
-  #root { position:absolute; inset:0;
-    padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom); }
+  /* iOS PWA: edge-to-edge. Фоны и карта — под статус-баром и home-индикатором,
+     интерфейс сдвигается точечно через var(--sat)/var(--sab). На Android инсеты = 0. */
+  :root { --sat: env(safe-area-inset-top, 0px); --sab: env(safe-area-inset-bottom, 0px); }
+  #root { position:absolute; inset:0; padding-bottom:var(--sab); }
 
   #splash { position:absolute; inset:0; z-index:100; background:#0F0C08;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;

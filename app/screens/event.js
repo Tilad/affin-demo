@@ -1074,7 +1074,7 @@ function MeetupScreen({ accent = T.accent, onBack, onPeople, onOpenPerson, activ
   const org = PEOPLE[3];
 
   return (
-    <div style={{position:'absolute', inset:0, background:T.bg, paddingTop:16, display:'flex', flexDirection:'column'}}>
+    <div style={{position:'absolute', inset:0, background:T.bg, paddingTop:'calc(16px + var(--sat))', display:'flex', flexDirection:'column'}}>
       {/* header — как на карте конференции */}
       <div style={{padding:'8px 14px', display:'flex', alignItems:'center', gap:8, flexShrink:0}}>
         <button onClick={onBack} style={{...chrome, width:40, height:40, borderRadius:14, flexShrink:0,
