@@ -79,7 +79,7 @@
       var gap = Math.max(0, screen.height - window.innerHeight); // окно короче экрана?
       var y0 = Math.max(0, window.screenY || 0);                  // окно смещено вниз (под статус-бар)?
       var vv = window.visualViewport;
-      window.__diag = 'v16 ih' + window.innerHeight + ' sh' + screen.height +
+      window.__diag = 'v17 ih' + window.innerHeight + ' sh' + screen.height +
         ' t' + Math.round(top) + ' b' + Math.round(bot) + ' g' + Math.round(gap) +
         ' y' + Math.round(y0) +
         (vv ? ' vv' + Math.round(vv.height) + '+' + Math.round(vv.offsetTop) : '') +
@@ -104,7 +104,7 @@
 </script>
 <div id="splash">
   <div class="logo">Affin</div>
-  <div class="sub">сквозной прототип · v16</div>
+  <div class="sub">сквозной прототип · v17</div>
 </div>
 <div id="errbox"></div>
 
@@ -122,7 +122,7 @@
 
   if ('serviceWorker' in navigator && window.isSecureContext) {
     // ?v= обходит HTTP-кэш GitHub Pages (max-age=600) — новый SW виден сразу
-    navigator.serviceWorker.register('sw.js?v=16').catch(() => {});
+    navigator.serviceWorker.register('sw.js?v=17').catch(() => {});
     // новый SW взял контроль (skipWaiting+claim) → перезагружаемся на свежий кэш.
     // Только если контроллер уже был: на первой установке не дёргаем.
     var hadSW = !!navigator.serviceWorker.controller, reloaded = false;

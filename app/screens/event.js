@@ -249,7 +249,7 @@ function ConferenceMapScreen({ accent = T.accent, onBack, onPeople, activeCard, 
       background:'radial-gradient(ellipse at 50% 35%, #F6F2EA 0%, #EFE9DD 60%, #E8E0D1 100%)'}}>
 
       {/* ── план зала (SVG floor plan) ── */}
-      <div style={{position:'absolute', left:0, right:0, top:134, bottom:118}}>
+      <div style={{position:'absolute', left:0, right:0, top:'calc(90px + var(--sat))', bottom:118}}>
         {(() => {
           const px = (v) => +(v * 3.6).toFixed(1);
           const py = (v) => +(v * 5.08).toFixed(1);
@@ -380,7 +380,7 @@ function ConferenceMapScreen({ accent = T.accent, onBack, onPeople, activeCard, 
       </div>
 
       {/* ── header ── */}
-      <div style={{position:'absolute', top:54, left:0, right:0, zIndex:10, padding:'8px 14px',
+      <div style={{position:'absolute', top:'calc(10px + var(--sat))', left:0, right:0, zIndex:10, padding:'8px 14px',
         display:'flex', alignItems:'center', gap:8}}>
         <button onClick={onBack} style={{...chrome, width:40, height:40, borderRadius:14, flexShrink:0,
           display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer'}}>
