@@ -186,7 +186,7 @@ function CompatibilitySlider({ value = 65, count = 18, accent = T.accent, onChan
           padding:'9px 14px',
           borderRadius:14,
           background:T.glass,
-          backdropFilter:'blur(14px)',
+          backdropFilter:'blur(14px)', WebkitBackdropFilter:'blur(14px)',
           border:`1px solid ${T.divide}`,
           display:'flex', alignItems:'center', gap:10,
           cursor:'pointer', overflow:'hidden', textAlign:'left',
@@ -214,7 +214,7 @@ function CompatibilitySlider({ value = 65, count = 18, accent = T.accent, onChan
           position:'absolute', left:'50%', top:-12, transform:'translate(-50%,-100%)',
           display:'flex', alignItems:'center', gap:5,
           padding:'4px 9px', borderRadius:9,
-          background:T.glassSoft, backdropFilter:'blur(8px)',
+          background:T.glassSoft, backdropFilter:'blur(8px)', WebkitBackdropFilter:'blur(8px)',
           border:`1px solid ${T.divide2}`,
           whiteSpace:'nowrap', pointerEvents:'none',
         }}>
@@ -234,7 +234,7 @@ function CompatibilitySlider({ value = 65, count = 18, accent = T.accent, onChan
       padding:'14px 16px',
       borderRadius:18,
       background:T.glass,
-      backdropFilter:'blur(14px)',
+      backdropFilter:'blur(14px)', WebkitBackdropFilter:'blur(14px)',
       border:`1px solid ${T.divide}`,
     }}>
       {/* collapse chevron */}
@@ -311,7 +311,7 @@ function CompatibilitySlider({ value = 65, count = 18, accent = T.accent, onChan
         position:'absolute', left:'50%', top:-12, transform:'translate(-50%,-100%)',
         display:'flex', alignItems:'center', gap:5,
         padding:'4px 9px', borderRadius:9,
-        background:T.glassSoft, backdropFilter:'blur(8px)',
+        background:T.glassSoft, backdropFilter:'blur(8px)', WebkitBackdropFilter:'blur(8px)',
         border:`1px solid ${T.divide2}`,
         whiteSpace:'nowrap',
       }}>
@@ -335,7 +335,7 @@ function MapToolbar({ mode = 'map', onMode, onFilters, accent = T.accent }) {
       {/* mode toggle */}
       <div style={{
         display:'flex', padding:3, borderRadius:14,
-        background:T.glass, backdropFilter:'blur(14px)',
+        background:T.glass, backdropFilter:'blur(14px)', WebkitBackdropFilter:'blur(14px)',
         border:`1px solid ${T.divide}`,
       }}>
         {[
@@ -362,7 +362,7 @@ function MapToolbar({ mode = 'map', onMode, onFilters, accent = T.accent }) {
       <button onClick={onFilters} style={{
         display:'flex',alignItems:'center',gap:6,
         padding:'10px 14px',borderRadius:14,border:'none',
-        background:T.glass, backdropFilter:'blur(14px)',
+        background:T.glass, backdropFilter:'blur(14px)', WebkitBackdropFilter:'blur(14px)',
         outline:`1px solid ${T.divide}`,cursor:'pointer',
       }}>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -392,7 +392,7 @@ function FilterChips({ chips = ['Дизайн · продукт', 'Сейчас 
         <div key={i} style={{
           display:'flex', alignItems:'center', gap:5,
           padding:'4px 9px', borderRadius:8,
-          background:T.glassSoft, backdropFilter:'blur(10px)',
+          background:T.glassSoft, backdropFilter:'blur(10px)', WebkitBackdropFilter:'blur(10px)',
           border:`1px solid ${accent}30`,
         }}>
           <span style={{fontFamily:T.mono,fontSize:9,color:T.ink,letterSpacing:0.4}}>{c}</span>
@@ -529,7 +529,7 @@ function RecenterFab({ accent = T.accent, onClick, pulsing = false }) {
     <button onClick={onClick} aria-label="вернуть на меня" style={{
       position:'absolute', right:14, bottom:200, zIndex:9,
       width:40, height:40, borderRadius:14, border:'none',
-      background:T.glass, backdropFilter:'blur(14px)',
+      background:T.glass, backdropFilter:'blur(14px)', WebkitBackdropFilter:'blur(14px)',
       outline:`1px solid ${pulsing ? accent : T.divide}`, cursor:'pointer',
       display:'flex', alignItems:'center', justifyContent:'center',
       boxShadow: pulsing ? `0 0 0 4px ${accent}25, 0 6px 16px ${accent}55` : 'none',
@@ -680,7 +680,7 @@ function EventMarker({ x = 50, y = 40, accent = T.accent, label = 'Mining Expo',
         <div style={{
           padding:'3px 8px', borderRadius:8,
           background:T.glass,
-          backdropFilter:'blur(10px)',
+          backdropFilter:'blur(10px)', WebkitBackdropFilter:'blur(10px)',
           border:`1px solid ${T.divide}`,
           display:'flex', alignItems:'center', gap:6,
         }}>
@@ -1111,7 +1111,7 @@ function SwipeBanner({ count, accent, onDismiss }) {
     <div style={{
       position:'absolute', top:'calc(14px + var(--sat))', left:14, right:14, zIndex:60,
       padding:'12px 14px', borderRadius:14,
-      background:T.glassHi, backdropFilter:'blur(14px)',
+      background:T.glassHi, backdropFilter:'blur(14px)', WebkitBackdropFilter:'blur(14px)',
       border:`1px solid ${accent}55`,
       boxShadow:'0 12px 32px rgba(0,0,0,0.55)',
       display:'flex', alignItems:'flex-start', gap:10,
@@ -1507,7 +1507,7 @@ function MapScreen({ variant = 'A', threshold, setThreshold, visible = true, acc
           {/* подсказка сверху */}
           <div style={{position:'absolute', top:'calc(64px + var(--sat))', left:'50%', transform:'translateX(-50%)', zIndex:13,
             padding:'7px 14px', borderRadius:14, pointerEvents:'none',
-            background:T.glass, backdropFilter:'blur(10px)', border:`1px solid ${T.divide}`}}>
+            background:T.glass, backdropFilter:'blur(10px)', WebkitBackdropFilter:'blur(10px)', border:`1px solid ${T.divide}`}}>
             <span style={{fontFamily:T.body, fontSize:13.5, color:T.ink, fontStyle:'italic'}}>двигай карту — поставь себя, где хочешь</span>
           </div>
 
@@ -1516,7 +1516,7 @@ function MapScreen({ variant = 'A', threshold, setThreshold, visible = true, acc
             display:'flex', gap:9}}>
             <button onClick={() => setPlacing(false)} style={{
               flex:'0 0 auto', padding:'0 18px', height:50, borderRadius:15, cursor:'pointer',
-              background:T.glassHi, backdropFilter:'blur(14px)', border:`1px solid ${T.divide}`,
+              background:T.glassHi, backdropFilter:'blur(14px)', WebkitBackdropFilter:'blur(14px)', border:`1px solid ${T.divide}`,
               color:T.mid, fontFamily:T.sans, fontSize:14, fontWeight:500,
             }}>Отмена</button>
             <button onClick={() => setPlacePicker(true)} style={{
@@ -1768,14 +1768,14 @@ function EventInfoSheet({ accent = T.accent, count = 18, onClose, onViewPeople,
             position:'absolute', top:12, right:12,
             display:'flex', alignItems:'center', gap:5,
             padding:'4px 9px', borderRadius:20,
-            background:T.glassFaint, backdropFilter:'blur(8px)',
+            background:T.glassFaint, backdropFilter:'blur(8px)', WebkitBackdropFilter:'blur(8px)',
           }}>
             <div style={{width:6, height:6, borderRadius:'50%', background:'#7DEBA8', boxShadow:'0 0 6px #7DEBA8'}}/>
             <span style={{fontFamily:T.mono, fontSize:8.5, color:'#fff', letterSpacing:1.2, textTransform:'uppercase', fontWeight:600}}>идёт сейчас</span>
           </div>
           <button onClick={onClose} aria-label="закрыть" style={{
             position:'absolute', top:10, left:12, width:30, height:30, borderRadius:9,
-            border:'none', background:T.glassFaint, backdropFilter:'blur(8px)',
+            border:'none', background:T.glassFaint, backdropFilter:'blur(8px)', WebkitBackdropFilter:'blur(8px)',
             display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer',
           }}>
             <svg width="11" height="11" viewBox="0 0 11 11"><path d="M1 1l9 9M10 1l-9 9" stroke="#fff" strokeWidth="1.6" strokeLinecap="round"/></svg>

@@ -151,7 +151,7 @@ function gEventEl({ accent, label, kind, onClick }) {
   el.style.cssText = 'cursor:pointer;-webkit-tap-highlight-color:transparent;z-index:6;display:flex;flex-direction:column;align-items:center;';
   el.innerHTML = core +
     `<div style="margin-top:5px;padding:3px 9px;border-radius:8px;background:${Tg.glass};`+
-      `backdrop-filter:blur(10px);border:1px solid ${Tg.divide};display:flex;align-items:center;gap:6px;white-space:nowrap;">`+
+      `backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid ${Tg.divide};display:flex;align-items:center;gap:6px;white-space:nowrap;">`+
       `<span style="font-family:${Tg.serif};font-size:11px;font-weight:600;color:${Tg.ink};line-height:1;">${label}</span>`+
       `<span style="width:6px;height:6px;border-radius:50%;background:#3FB87C;box-shadow:0 0 5px rgba(63,184,124,0.9);"></span>`+
     `</div>`;
@@ -375,7 +375,7 @@ function MapVariantGeo({ threshold = 0, accent = Tg.accent, onPerson, onCluster,
         <button onClick={toggleTheme} aria-label="переключить тему карты" style={{
           position:'absolute', right:14, bottom:248, zIndex:9,
           width:40, height:40, borderRadius:14, border:'none',
-          background:Tg.glass, backdropFilter:'blur(14px)',
+          background:Tg.glass, backdropFilter:'blur(14px)', WebkitBackdropFilter:'blur(14px)',
           outline:`1px solid ${Tg.divide}`, cursor:'pointer',
           display:'flex', alignItems:'center', justifyContent:'center',
         }}>

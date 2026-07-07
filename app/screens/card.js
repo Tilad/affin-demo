@@ -217,9 +217,9 @@ function PhotoViewer({ photos = [], start = 0, name, accent = T.accent, onClose 
       <div style={{position:'absolute',top:0,left:0,right:0,zIndex:3,paddingTop:'calc(16px + var(--sat))',
         display:'flex',alignItems:'center',justifyContent:'space-between',padding:'54px 14px 0'}}>
         <div style={{fontFamily:T.mono,fontSize:11,fontWeight:700,color:'#fff',letterSpacing:1,
-          padding:'5px 11px',borderRadius:20,background:'rgba(0,0,0,0.4)',backdropFilter:'blur(6px)'}}>{i+1} / {n}</div>
+          padding:'5px 11px',borderRadius:20,background:'rgba(0,0,0,0.4)',backdropFilter:'blur(6px)', WebkitBackdropFilter:'blur(6px)'}}>{i+1} / {n}</div>
         <button onClick={onClose} aria-label="закрыть" style={{width:36,height:36,borderRadius:11,border:'none',cursor:'pointer',
-          background:'rgba(0,0,0,0.4)',backdropFilter:'blur(6px)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+          background:'rgba(0,0,0,0.4)',backdropFilter:'blur(6px)', WebkitBackdropFilter:'blur(6px)',display:'flex',alignItems:'center',justifyContent:'center'}}>
           <svg width="12" height="12" viewBox="0 0 12 12"><path d="M1 1l10 10M11 1L1 11" stroke="#fff" strokeWidth="1.7" strokeLinecap="round"/></svg>
         </button>
       </div>

@@ -31,7 +31,7 @@ const T = {
   body:      "'Roboto', system-ui, -apple-system, sans-serif",
   sans:      "'Inter', system-ui, sans-serif",
   mono:      "'JetBrains Mono', monospace",
-  hand:      "'Caveat', cursive",
+  hand:      "'Caveat', sans-serif",
 };
 
 // Demo data — Марина К. from Wizard Flow

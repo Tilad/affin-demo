@@ -430,7 +430,7 @@ function StylizedQR({ accent = T.accent, size = 200 }) {
         )}
         {/* Center logo plate */}
         <rect x={size/2 - 18} y={size/2 - 18} width={36} height={36} rx={10} fill={T.surface} stroke={accent} strokeWidth="1.5"/>
-        <text x={size/2} y={size/2 + 8} textAnchor="middle" fontFamily="'Caveat', cursive" fontSize="22" fontWeight="700" fill={accent}>A</text>
+        <text x={size/2} y={size/2 + 8} textAnchor="middle" fontFamily="'Caveat', sans-serif" fontSize="22" fontWeight="700" fill={accent}>A</text>
       </svg>
       {/* Live indicator */}
       <div style={{
