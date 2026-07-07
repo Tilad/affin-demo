@@ -2,7 +2,7 @@
 // App shell предзакэширован при установке; тайлы карты, шрифты и фото кэшируются
 // на лету. Стратегия stale-while-revalidate: офлайн работает из кэша,
 // при живом сервере обновления тихо подтягиваются в фоне.
-const VERSION = 'affin-v10';
+const VERSION = 'affin-v11';
 
 const CORE = [
   './',
@@ -23,8 +23,10 @@ const CORE = [
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
     const cache = await caches.open(VERSION);
-    // по одному, чтобы один сбой не валил всю установку
-    await Promise.all(CORE.map(u => cache.add(u).catch(() => null)));
+    // по одному, чтобы один сбой не валил всю установку;
+    // cache:'reload' — мимо HTTP-кэша CDN, иначе новый SW засасывает старые файлы
+    await Promise.all(CORE.map(u =>
+      cache.add(new Request(u, { cache: 'reload' })).catch(() => null)));
     self.skipWaiting();
   })());
 });

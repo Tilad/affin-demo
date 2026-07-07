@@ -84,7 +84,7 @@
 </script>
 <div id="splash">
   <div class="logo">Affin</div>
-  <div class="sub">сквозной прототип</div>
+  <div class="sub">сквозной прототип · v11</div>
 </div>
 <div id="errbox"></div>
 
@@ -100,8 +100,16 @@
     el.textContent += msg + ' @ ' + (src || '').split('/').pop() + ':' + line + '\n';
   };
 
-  if ('serviceWorker' in navigator && window.isSecureContext)
-    navigator.serviceWorker.register('sw.js').catch(() => {});
+  if ('serviceWorker' in navigator && window.isSecureContext) {
+    // ?v= обходит HTTP-кэш GitHub Pages (max-age=600) — новый SW виден сразу
+    navigator.serviceWorker.register('sw.js?v=11').catch(() => {});
+    // новый SW взял контроль (skipWaiting+claim) → перезагружаемся на свежий кэш.
+    // Только если контроллер уже был: на первой установке не дёргаем.
+    var hadSW = !!navigator.serviceWorker.controller, reloaded = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (hadSW && !reloaded) { reloaded = true; location.reload(); }
+    });
+  }
 </script>
 <script src="app/vendor/react.js"></script>
 <script src="app/vendor/react-dom.js"></script>
