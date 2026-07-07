@@ -8,7 +8,7 @@ function TabIcon({ kind, active, c }) {
   if (kind === 'discover') {
     // overlapping circles — поиск (карта+свайп)
     return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <svg width="27" height="27" viewBox="0 0 24 24" fill="none">
         <circle cx="9" cy="12" r="5.5" stroke={stroke} strokeWidth={sw} fill={active?`${c}22`:'none'}/>
         <circle cx="15" cy="12" r="5.5" stroke={stroke} strokeWidth={sw} fill={active?`${c}22`:'none'}/>
         {active && <circle cx="12" cy="12" r="1.2" fill={c}/>}
@@ -18,7 +18,7 @@ function TabIcon({ kind, active, c }) {
   if (kind === 'inbox') {
     // входящие заявки — двое силуэтов
     return (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+      <svg width="29" height="29" viewBox="0 0 24 24" fill="none">
         <circle cx="9" cy="8.5" r="3.2" stroke={stroke} strokeWidth={sw} fill={active?`${c}22`:'none'}/>
         <path d="M3 19.5 Q3 14.5 9 14.5 Q15 14.5 15 19.5" stroke={stroke} strokeWidth={sw} fill={active?`${c}22`:'none'} strokeLinecap="round"/>
         <circle cx="16.5" cy="7" r="2.6" stroke={stroke} strokeWidth={sw} fill={active?`${c}22`:'none'}/>
@@ -29,7 +29,7 @@ function TabIcon({ kind, active, c }) {
   }
   if (kind === 'chats') {
     return (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+      <svg width="29" height="29" viewBox="0 0 24 24" fill="none">
         <path d="M4.5 6.5 Q4.5 4.5 6.5 4.5 L17.5 4.5 Q19.5 4.5 19.5 6.5 L19.5 14.5 Q19.5 16.5 17.5 16.5 L10 16.5 L6.5 19.8 L6.5 16.5 Q4.5 16.5 4.5 14.5 Z"
               stroke={stroke} strokeWidth={sw} fill={active?`${c}22`:'none'} strokeLinejoin="round"/>
         <circle cx="9"  cy="10.5" r="0.9" fill={stroke}/>
@@ -40,7 +40,7 @@ function TabIcon({ kind, active, c }) {
   }
   if (kind === 'me') {
     return (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+      <svg width="29" height="29" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="9" r="3.8" stroke={stroke} strokeWidth={sw} fill={active?`${c}22`:'none'}/>
         <path d="M5 20 Q5 14.5 12 14.5 Q19 14.5 19 20" stroke={stroke} strokeWidth={sw} fill={active?`${c}22`:'none'} strokeLinecap="round"/>
       </svg>
