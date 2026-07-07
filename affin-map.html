@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Affin</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0F0C08">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -79,15 +79,16 @@
       var gap = Math.max(0, screen.height - window.innerHeight); // окно короче экрана?
       var y0 = Math.max(0, window.screenY || 0);                  // окно смещено вниз (под статус-бар)?
       var vv = window.visualViewport;
-      window.__diag = 'v14 ih' + window.innerHeight + ' sh' + screen.height +
+      window.__diag = 'v15 ih' + window.innerHeight + ' sh' + screen.height +
         ' t' + Math.round(top) + ' b' + Math.round(bot) + ' g' + Math.round(gap) +
         ' y' + Math.round(y0) +
         (vv ? ' vv' + Math.round(vv.height) + '+' + Math.round(vv.offsetTop) : '') +
         (standalone ? ' sa' : ' br');
       if (iPhone && standalone && h >= 812) {
-        // дыра снизу: black-translucent-баг iOS 26 — окно прижато к верху,
-        // низ экрана вне окна. Отступы снизу не нужны, бар поджимаем.
-        var holeAtBottom = gap > 20 && y0 < 20;
+        // дыра снизу: iOS 26 прижал окно к верху (контент под часами, env top
+        // большой), низ экрана вне окна — отступы снизу не нужны, бар поджимаем.
+        // Если окно ниже статус-бара (env top ~0) — низ достаёт до края: нужны 34.
+        var holeAtBottom = gap > 20 && top >= 20;
         if (top < 20 && gap < 20)
           document.documentElement.style.setProperty('--sat',
             (h >= 874 ? 62 : h >= 852 ? 59 : 47) + 'px');
@@ -103,7 +104,7 @@
 </script>
 <div id="splash">
   <div class="logo">Affin</div>
-  <div class="sub">сквозной прототип · v14</div>
+  <div class="sub">сквозной прототип · v15</div>
 </div>
 <div id="errbox"></div>
 
@@ -121,7 +122,7 @@
 
   if ('serviceWorker' in navigator && window.isSecureContext) {
     // ?v= обходит HTTP-кэш GitHub Pages (max-age=600) — новый SW виден сразу
-    navigator.serviceWorker.register('sw.js?v=14').catch(() => {});
+    navigator.serviceWorker.register('sw.js?v=15').catch(() => {});
     // новый SW взял контроль (skipWaiting+claim) → перезагружаемся на свежий кэш.
     // Только если контроллер уже был: на первой установке не дёргаем.
     var hadSW = !!navigator.serviceWorker.controller, reloaded = false;
