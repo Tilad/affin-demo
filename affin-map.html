@@ -30,7 +30,7 @@
   .noscroll { -ms-overflow-style:none; scrollbar-width:none; }
   /* iOS PWA: edge-to-edge. Фоны и карта — под статус-баром и home-индикатором,
      интерфейс сдвигается точечно через var(--sat)/var(--sab). На Android инсеты = 0. */
-  :root { --sat: env(safe-area-inset-top, 0px); --sab: env(safe-area-inset-bottom, 0px); }
+  :root { --sat: min(env(safe-area-inset-top, 0px), 62px); --sab: min(env(safe-area-inset-bottom, 0px), 34px); }
   #root { position:absolute; inset:0; }
 
   #splash { position:absolute; inset:0; z-index:100; background:#0F0C08;
