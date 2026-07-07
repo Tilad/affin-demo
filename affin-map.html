@@ -58,33 +58,48 @@
 
 <div id="root"></div>
 <script>
-/* iOS standalone: env(safe-area-inset-top) иногда возвращает 0 (баг WebKit) —
-   часы и батарея ложатся на интерфейс. Меряем env() и, если iOS соврал,
-   подставляем известные для высоты экрана значения. */
+/* iOS standalone врёт про safe-area: top бывает 0 (часы ложатся на UI),
+   bottom бывает раздут, а iOS 26 вдобавок сам обрезает вьюпорт снизу.
+   Меряем env() и реальный вьюпорт, выставляем --sat/--sab детерминированно.
+   Телеметрия остаётся в window.__diag (рисуется в копирайте карты). */
 (function(){
-  try {
-    var p = document.createElement('div');
-    p.style.cssText = 'position:fixed;top:0;left:0;width:1px;visibility:hidden;pointer-events:none;' +
-      'padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)';
-    document.body.appendChild(p);
-    var cs = getComputedStyle(p);
-    var top = parseFloat(cs.paddingTop) || 0, bot = parseFloat(cs.paddingBottom) || 0;
-    document.body.removeChild(p);
-    var iPhone = /iPhone|iPod/.test(navigator.userAgent);
-    var standalone = navigator.standalone === true ||
-      (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
-    var h = Math.max(screen.width, screen.height);
-    if (iPhone && standalone && h >= 812) {
-      if (top < 20) document.documentElement.style.setProperty('--sat',
-        (h >= 874 ? 62 : h >= 852 ? 59 : 47) + 'px');
-      if (bot < 10) document.documentElement.style.setProperty('--sab', '34px');
-    }
-  } catch(e) {}
+  function fix(){
+    try {
+      var p = document.createElement('div');
+      p.style.cssText = 'position:fixed;top:0;left:0;width:1px;visibility:hidden;pointer-events:none;' +
+        'padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)';
+      document.body.appendChild(p);
+      var cs = getComputedStyle(p);
+      var top = parseFloat(cs.paddingTop) || 0, bot = parseFloat(cs.paddingBottom) || 0;
+      document.body.removeChild(p);
+      var iPhone = /iPhone|iPod/.test(navigator.userAgent);
+      var standalone = navigator.standalone === true ||
+        (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+      var h = Math.max(screen.width, screen.height);
+      var gap = Math.max(0, screen.height - window.innerHeight); // сколько iOS уже отрезал
+      var vv = window.visualViewport;
+      window.__diag = 'v12 ih' + window.innerHeight + ' sh' + screen.height +
+        ' t' + Math.round(top) + ' b' + Math.round(bot) + ' g' + Math.round(gap) +
+        (vv ? ' vv' + Math.round(vv.height) + '+' + Math.round(vv.offsetTop) : '') +
+        (standalone ? ' sa' : ' br');
+      if (iPhone && standalone && h >= 812) {
+        if (top < 20 && gap < 20)
+          document.documentElement.style.setProperty('--sat',
+            (h >= 874 ? 62 : h >= 852 ? 59 : 47) + 'px');
+        // низ: если вьюпорт уже короче экрана, home-индикатор вне страницы —
+        // свой отступ не нужен; иначе честные 34 (или env, если он вменяемый)
+        var sab = gap > 20 ? Math.max(0, 34 - gap) : (bot >= 10 ? Math.min(bot, 34) : 34);
+        document.documentElement.style.setProperty('--sab', sab + 'px');
+      }
+    } catch(e) {}
+  }
+  fix();
+  addEventListener('load', fix);
 })();
 </script>
 <div id="splash">
   <div class="logo">Affin</div>
-  <div class="sub">сквозной прототип · v11</div>
+  <div class="sub">сквозной прототип · v12</div>
 </div>
 <div id="errbox"></div>
 
@@ -102,7 +117,7 @@
 
   if ('serviceWorker' in navigator && window.isSecureContext) {
     // ?v= обходит HTTP-кэш GitHub Pages (max-age=600) — новый SW виден сразу
-    navigator.serviceWorker.register('sw.js?v=11').catch(() => {});
+    navigator.serviceWorker.register('sw.js?v=12').catch(() => {});
     // новый SW взял контроль (skipWaiting+claim) → перезагружаемся на свежий кэш.
     // Только если контроллер уже был: на первой установке не дёргаем.
     var hadSW = !!navigator.serviceWorker.controller, reloaded = false;
