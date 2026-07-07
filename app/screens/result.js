@@ -56,7 +56,7 @@ function ResultScreen({ accent = T.accent, stage = 'confirm', onMet, onSkip, onE
           </div>
         </div>
 
-        <div style={{padding:'0 22px 28px',display:'flex',flexDirection:'column',gap:9}}>
+        <div style={{padding:'0 22px max(28px, calc(14px + var(--sab)))',display:'flex',flexDirection:'column',gap:9}}>
           <button onClick={onMet} style={{
             width:'100%',padding:'15px 0',borderRadius:14,border:'none',
             background:accent,color:'#fff',
@@ -123,7 +123,7 @@ function ResultScreen({ accent = T.accent, stage = 'confirm', onMet, onSkip, onE
         </div>
       </div>
 
-      <div style={{padding:'0 22px 28px',display:'flex',flexDirection:'column',gap:9}}>
+      <div style={{padding:'0 22px max(28px, calc(14px + var(--sab)))',display:'flex',flexDirection:'column',gap:9}}>
         <button onClick={onMessage} style={{
           width:'100%',padding:'15px 0',borderRadius:14,border:'none',
           background:accent,color:'#fff',
@@ -235,7 +235,7 @@ function ResultExchange({ accent = T.accent, p = MIKHAIL, onExchange }) {
         </div>
       </div>
 
-      <div style={{padding:'12px 22px 28px',borderTop:`1px solid ${T.divide}`}}>
+      <div style={{padding:'12px 22px max(28px, calc(14px + var(--sab)))',borderTop:`1px solid ${T.divide}`}}>
         <button onClick={onExchange} style={{
           width:'100%',padding:'15px 0',borderRadius:14,border:'none',
           background:accent,color:'#fff',

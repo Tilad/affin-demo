@@ -433,7 +433,7 @@ function QRShareSheet({ accent = T.accent, onClose, onScanned }) {
         position:'absolute', left:0, right:0, bottom:0,
         background:T.sheet, borderTop:`1px solid ${T.divide}`,
         borderRadius:'22px 22px 0 0', boxShadow:'0 -16px 48px rgba(0,0,0,0.6)',
-        padding:'14px 18px 26px',
+        padding:'14px 18px max(26px, calc(12px + var(--sab)))',
         animation:'sheetUp 0.32s cubic-bezier(0.2,0.9,0.3,1)',
       }}>
         <div style={{width:36, height:4, borderRadius:2, background:T.divide, margin:'0 auto 12px'}}/>
@@ -1170,7 +1170,7 @@ function FiltersSheet({ accent = T.accent, onClose, onApply, initial = {} }) {
       {/* sheet */}
       <div style={{
         position:'absolute', left:0, right:0, bottom:0,
-        maxHeight:'82%',
+        maxHeight:'82%', paddingBottom:'var(--sab)',
         background:T.sheet,
         borderTop:`1px solid ${T.divide}`,
         borderRadius:'22px 22px 0 0',
@@ -1596,7 +1596,7 @@ function SwipeCardView({ p, k, top = false, dimmed = false, accent }) {
       )}
 
       {/* info */}
-      <div style={{position:'absolute', left:0, right:0, bottom:0, padding:'0 20px 22px', pointerEvents:'none'}}>
+      <div style={{position:'absolute', left:0, right:0, bottom:0, padding:'0 20px max(22px, calc(10px + var(--sab)))', pointerEvents:'none'}}>
         <div style={{display:'flex', alignItems:'baseline', gap:8}}>
           <span style={{fontFamily:T.serif, fontSize:28, fontWeight:700, color:'#fff', lineHeight:1.1}}>{p.name}</span>
           <span style={{fontFamily:T.mono, fontSize:9, color:'rgba(255,255,255,0.6)', letterSpacing:0.5}}>рядом · Депо</span>
@@ -1754,7 +1754,7 @@ function EventInfoSheet({ accent = T.accent, count = 18, onClose, onViewPeople,
         position:'absolute', left:0, right:0, bottom:0,
         background:T.sheet, borderTop:`1px solid ${T.divide}`,
         borderRadius:'22px 22px 0 0', boxShadow:'0 -16px 48px rgba(0,0,0,0.6)',
-        padding:'0 0 24px', overflow:'hidden',
+        padding:'0 0 max(24px, calc(12px + var(--sab)))', overflow:'hidden',
         animation:'sheetUp 0.32s cubic-bezier(0.2,0.9,0.3,1)',
       }}>
         {/* cover */}
@@ -1861,7 +1861,7 @@ function GeoPicker({ accent = T.accent, onConfirm, onCancel, snapped = { name:'�
       {/* bottom action sheet */}
       <div style={{
         position:'absolute', left:0, right:0, bottom:0,
-        padding:'18px 16px 26px',
+        padding:'18px 16px max(26px, calc(12px + var(--sab)))',
         background:T.glassHi, backdropFilter:'blur(16px)', WebkitBackdropFilter:'blur(16px)',
         borderTop:`1px solid ${T.divide}`,
         display:'flex', flexDirection:'column', gap:14,

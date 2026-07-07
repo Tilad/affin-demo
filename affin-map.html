@@ -31,7 +31,7 @@
   /* iOS PWA: edge-to-edge. Фоны и карта — под статус-баром и home-индикатором,
      интерфейс сдвигается точечно через var(--sat)/var(--sab). На Android инсеты = 0. */
   :root { --sat: env(safe-area-inset-top, 0px); --sab: env(safe-area-inset-bottom, 0px); }
-  #root { position:absolute; inset:0; padding-bottom:var(--sab); }
+  #root { position:absolute; inset:0; }
 
   #splash { position:absolute; inset:0; z-index:100; background:#0F0C08;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
@@ -57,6 +57,31 @@
 <body>
 
 <div id="root"></div>
+<script>
+/* iOS standalone: env(safe-area-inset-top) иногда возвращает 0 (баг WebKit) —
+   часы и батарея ложатся на интерфейс. Меряем env() и, если iOS соврал,
+   подставляем известные для высоты экрана значения. */
+(function(){
+  try {
+    var p = document.createElement('div');
+    p.style.cssText = 'position:fixed;top:0;left:0;width:1px;visibility:hidden;pointer-events:none;' +
+      'padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)';
+    document.body.appendChild(p);
+    var cs = getComputedStyle(p);
+    var top = parseFloat(cs.paddingTop) || 0, bot = parseFloat(cs.paddingBottom) || 0;
+    document.body.removeChild(p);
+    var iPhone = /iPhone|iPod/.test(navigator.userAgent);
+    var standalone = navigator.standalone === true ||
+      (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+    var h = Math.max(screen.width, screen.height);
+    if (iPhone && standalone && h >= 812) {
+      if (top < 20) document.documentElement.style.setProperty('--sat',
+        (h >= 874 ? 62 : h >= 852 ? 59 : 47) + 'px');
+      if (bot < 10) document.documentElement.style.setProperty('--sab', '34px');
+    }
+  } catch(e) {}
+})();
+</script>
 <div id="splash">
   <div class="logo">Affin</div>
   <div class="sub">сквозной прототип</div>

@@ -241,7 +241,7 @@ function PhotoViewer({ photos = [], start = 0, name, accent = T.accent, onClose 
       </div>
 
       {/* name + dots */}
-      <div style={{position:'absolute',left:0,right:0,bottom:0,zIndex:3,padding:'0 20px 30px',
+      <div style={{position:'absolute',left:0,right:0,bottom:0,zIndex:3,padding:'0 20px max(30px, calc(16px + var(--sab)))',
         background:'linear-gradient(to top, rgba(10,8,5,0.85), transparent)'}}>
         {name && <div style={{fontFamily:T.serif,fontSize:22,fontWeight:700,color:'#fff',marginBottom:12}}>{name}</div>}
         <div style={{display:'flex',gap:6,justifyContent:'center'}}>
@@ -641,7 +641,7 @@ function CardHierarchyB({ p = MARINA, accent = T.accent, ach, onAchievements, on
   const [viewer, setViewer] = React.useState(false);
   const openPhotos = () => { if (!photos.length) return; if (onViewPhotos) onViewPhotos(photos, `${p.name} ${p.last||''}`); else setViewer(true); };
   return (
-    <div style={{padding:'18px 18px 132px',minHeight:'100%',boxSizing:'border-box',
+    <div style={{padding:'18px 18px calc(132px + var(--sab))',minHeight:'100%',boxSizing:'border-box',
       display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
       <div style={{display:'flex',gap:12,alignItems:'flex-start',marginBottom:14}}>
         <button onClick={openPhotos} aria-label="фото" style={{
@@ -810,7 +810,7 @@ function CardActionBar({ accent = T.accent, ctaVariant = 'A', viVariant = 'A', t
   return (
     <div style={{
       position:'absolute',left:0,right:0,bottom:0,
-      padding:'14px 16px 28px',
+      padding:'14px 16px max(28px, calc(14px + var(--sab)))',
       background:`linear-gradient(to top, ${T.bg} 60%, ${T.bg}f0 85%, transparent)`,
     }}>
       <Bar accent={accent} tier={tier} iconSet={iconSet} onSkip={onSkip} onInterest={onInterest} onVery={onInterest} onMessage={onMessage}/>

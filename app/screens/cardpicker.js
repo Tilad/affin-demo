@@ -9,7 +9,7 @@ function CardPickerSheet({ accent = TP.accent, cards = CARDS_P, selectedId, titl
       display:'flex', alignItems:'flex-end'}} onClick={dismissable ? onClose : undefined}>
       <div onClick={e=>e.stopPropagation()} style={{
         width:'100%', background:T.sheet, borderRadius:'22px 22px 0 0',
-        border:`1px solid ${TP.divide}`, borderBottom:'none', padding:'18px 18px 28px',
+        border:`1px solid ${TP.divide}`, borderBottom:'none', padding:'18px 18px max(28px, calc(14px + var(--sab)))',
       }}>
         <div style={{width:36, height:4, borderRadius:2, background:TP.hi, margin:'0 auto 16px'}}/>
         <div style={{fontFamily:TP.serif, fontSize:20, fontWeight:700, color:TP.ink, fontStyle:'italic', lineHeight:1.2}}>{title}</div>

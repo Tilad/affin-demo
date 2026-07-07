@@ -147,7 +147,7 @@ function TabBar({ active = 'discover', accent = Tt.accent, badges = {}, onChange
     return (
       <div style={{
         position:'absolute', left:0, right:0, bottom:0,
-        paddingTop:14, paddingBottom:26,
+        paddingTop:14, paddingBottom:'max(26px, calc(12px + var(--sab)))',
         background:T.glassHi,
         backdropFilter:'blur(14px)', WebkitBackdropFilter:'blur(14px)',
         borderTop:`1px solid ${Tt.divide}`,
@@ -282,7 +282,7 @@ function TabBar({ active = 'discover', accent = Tt.accent, badges = {}, onChange
   return (
     <div style={{
       position:'absolute', left:0, right:0, bottom:0,
-      paddingTop:10, paddingBottom:24,
+      paddingTop:10, paddingBottom:'max(24px, calc(10px + var(--sab)))',
       background:T.glassHi,
       backdropFilter:'blur(14px)',
       WebkitBackdropFilter:'blur(14px)',

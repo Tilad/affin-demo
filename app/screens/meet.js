@@ -155,7 +155,7 @@ function MatchScreen({ accent = T.accent, animate = true, onContinue, onLater, o
       </div>
 
       {/* CTAs — всегда видны, середина скроллится при нехватке высоты */}
-      <div style={{padding:'14px 22px 28px',flexShrink:0}}>
+      <div style={{padding:'14px 22px max(28px, calc(14px + var(--sab)))',flexShrink:0}}>
         <div style={{display:'flex',gap:8}}>
           <button onClick={onLater} style={{
             flex:1,padding:'14px 0',borderRadius:14,border:`1px solid ${T.divide}`,
@@ -341,7 +341,7 @@ function ChatScreen({ accent = T.accent, stage = 'mid', onStartMeeting, onBack, 
 
       {/* Input */}
       <div style={{
-        padding:'10px 14px 22px',
+        padding:'10px 14px max(22px, calc(8px + var(--sab)))',
         borderTop:`1px solid ${T.divide}`,
         display:'flex',gap:8,alignItems:'flex-end',
       }}>
@@ -490,7 +490,7 @@ function MeetingPreScan({ accent = T.accent, onScanned, onCancel }) {
         </div>
       </div>
 
-      <div style={{padding:'14px 22px 28px'}}>
+      <div style={{padding:'14px 22px max(28px, calc(14px + var(--sab)))'}}>
         <div style={{
           padding:'11px 14px',borderRadius:12,
           background:T.surface,border:`1px solid ${T.divide}`,
@@ -620,7 +620,7 @@ function MeetingRunning({ accent = T.accent, secondsLeft = 712, onFinish, onCanc
         </div>
       </div>
 
-      <div style={{padding:'0 22px 28px'}}>
+      <div style={{padding:'0 22px max(28px, calc(14px + var(--sab)))'}}>
         {onFinish ? (
           <button onClick={onFinish} style={{
             width:'100%',padding:'13px 0',borderRadius:14,border:`1px solid ${accent}55`,

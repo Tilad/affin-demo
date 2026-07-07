@@ -656,7 +656,7 @@ function ConferenceMapScreen({ accent = T.accent, onBack, onPeople, activeCard, 
           display:'flex', alignItems:'flex-end'}} onClick={() => setQuestIntro(false)}>
           <div onClick={e=>e.stopPropagation()} style={{
             width:'100%', background:T.sheet, borderRadius:'22px 22px 0 0',
-            border:`1px solid ${T.divide}`, borderBottom:'none', padding:'20px 20px 26px'}}>
+            border:`1px solid ${T.divide}`, borderBottom:'none', padding:'20px 20px max(26px, calc(12px + var(--sab)))'}}>
             <div style={{width:36, height:4, borderRadius:2, background:T.hi, margin:'0 auto 18px'}}/>
             <div style={{display:'flex', alignItems:'center', gap:13}}>
               <div style={{width:52, height:52, borderRadius:16, flexShrink:0,
@@ -756,7 +756,7 @@ function QuestQROverlay({ accent, point, onDone, onClose }) {
           {scanned ? 'точка засчитана!' : 'код у стендиста или на стойке'}
         </div>
       </div>
-      <div style={{padding:'0 22px 26px', textAlign:'center', fontFamily:T.mono, fontSize:9, color:'rgba(255,255,255,0.3)', letterSpacing:1.1}}>
+      <div style={{padding:'0 22px max(26px, calc(12px + var(--sab)))', textAlign:'center', fontFamily:T.mono, fontSize:9, color:'rgba(255,255,255,0.3)', letterSpacing:1.1}}>
         тап по рамке — симуляция скана
       </div>
       <style>{`@keyframes questScanLine { 0%,100% { top: 10px; } 50% { top: 186px; } }`}</style>
@@ -790,7 +790,7 @@ function QuestSurveyOverlay({ accent, point, onDone, onClose }) {
       display:'flex', alignItems:'flex-end'}} onClick={onClose}>
       <div onClick={e=>e.stopPropagation()} style={{
         width:'100%', background:T.sheet, borderRadius:'22px 22px 0 0',
-        border:`1px solid ${T.divide}`, borderBottom:'none', padding:'20px 20px 30px',
+        border:`1px solid ${T.divide}`, borderBottom:'none', padding:'20px 20px max(30px, calc(14px + var(--sab)))',
       }}>
         <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
           <div style={{fontFamily:T.mono, fontSize:9, color:accent, letterSpacing:1.8, textTransform:'uppercase'}}>анкета · {company}</div>
@@ -905,7 +905,7 @@ function QuestQuizOverlay({ accent, point, onDone, onClose }) {
       display:'flex', alignItems:'flex-end'}} onClick={onClose}>
       <div onClick={e=>e.stopPropagation()} style={{
         width:'100%', background:T.sheet, borderRadius:'22px 22px 0 0',
-        border:`1px solid ${T.divide}`, borderBottom:'none', padding:'20px 20px 30px',
+        border:`1px solid ${T.divide}`, borderBottom:'none', padding:'20px 20px max(30px, calc(14px + var(--sab)))',
       }}>
         <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
           <div style={{fontFamily:T.mono, fontSize:9, color:accent, letterSpacing:1.8, textTransform:'uppercase'}}>квиз · {point.label}</div>
