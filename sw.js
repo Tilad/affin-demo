@@ -2,7 +2,7 @@
 // App shell предзакэширован при установке; тайлы карты, шрифты и фото кэшируются
 // на лету. Стратегия stale-while-revalidate: офлайн работает из кэша,
 // при живом сервере обновления тихо подтягиваются в фоне.
-const VERSION = 'affin-v18';
+const VERSION = 'affin-v19';
 
 const CORE = [
   './',
@@ -11,7 +11,8 @@ const CORE = [
   'icon-192.png', 'icon-512.png', 'apple-touch-icon.png',
   'app/vendor/react.js', 'app/vendor/react-dom.js', 'app/vendor/babel.js',
   'app/vendor/maplibre-gl.js', 'app/vendor/maplibre-gl.css',
-  'app/screens/tokens.js', 'app/screens/tabbar.js', 'app/screens/geo-map.jsx',
+  'app/screens/tokens.js', 'app/screens/constellation-v1.js', 'app/screens/onboarding.js',
+  'app/screens/tabbar.js', 'app/screens/geo-map.jsx',
   'app/screens/card.js', 'app/screens/map.js', 'app/screens/meet.js',
   'app/screens/result.js', 'app/screens/event.js', 'app/screens/cardpicker.js',
   'app/screens/profile.js', 'app/screens/proto.js',

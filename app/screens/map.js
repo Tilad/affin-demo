@@ -1492,7 +1492,7 @@ function MapScreen({ variant = 'A', threshold, setThreshold, visible = true, acc
       {/* обязательная атрибуция OSM — максимально тихо, в самом углу */}
       <div style={{position:'absolute', left:6, bottom:2, zIndex:8, pointerEvents:'none',
         fontFamily:T.mono, fontSize:7, color:'rgba(140,124,98,0.5)', letterSpacing:0.3}}>
-        © OpenStreetMap · OpenFreeMap · v18
+        © OpenStreetMap · OpenFreeMap · v19
       </div>
 
       {/* режим постановки: центральная зафиксированная метка + панель */}

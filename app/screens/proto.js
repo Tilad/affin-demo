@@ -6,7 +6,9 @@ const { T, MARINA, MIKHAIL, PEOPLE, MY_CARDS, MY_TARIFF,
         MeetupScreen, ConferenceMapScreen,
         MeetingPreScan, MeetingRunning, ResultScreen,
         ProfileMeScreen, InboxScreen, SettingsScreen, EditProfileScreen, BillingScreen,
-        TabBar, SwipeStack, CardPickerSheet } = window;
+        TabBar, SwipeStack, CardPickerSheet, OnboardingFlow } = window;
+
+const ONBOARDED_KEY = 'affin-onboarded';
 
 // ── minimal Chats-list tab ───────────────────────────────
 function ChatsList({ accent = T.accent, threads, onOpen }) {
@@ -529,5 +531,28 @@ function PrototypeApp({ accent = T.accent, eventStyle = 'building' }) {
   );
 }
 
+// ═══════════════════════════════════════════════════
+// Корень приложения: первый вход показывает онбординг,
+// дальше — сразу основной прототип (флаг в localStorage)
+// ═══════════════════════════════════════════════════
+function AppRoot({ accent = T.accent }) {
+  const [onboarded, setOnboarded] = React.useState(() => {
+    try { return localStorage.getItem(ONBOARDED_KEY) === '1'; } catch (e) { return false; }
+  });
+  // хук для демо/отладки — показать онбординг заново без очистки данных
+  window.__protoShowOnboarding = () => setOnboarded(false);
+
+  if (!onboarded) {
+    return (
+      <OnboardingFlow accent={accent} onFinish={() => {
+        try { localStorage.setItem(ONBOARDED_KEY, '1'); } catch (e) {}
+        setOnboarded(true);
+      }}/>
+    );
+  }
+  return <PrototypeApp accent={accent}/>;
+}
+
 window.PrototypeApp = PrototypeApp;
 window.ChatsList = ChatsList;
+window.AppRoot = AppRoot;
