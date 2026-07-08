@@ -12,9 +12,9 @@
 <meta name="apple-mobile-web-app-title" content="Affin">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Caveat:wght@400;700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- шрифты локальные (app/vendor/fonts/) — сеть до fonts.googleapis.com давала
+     заметную вспышку смены шрифта на лого при холодной загрузке -->
+<link href="app/vendor/fonts/fonts.css" rel="stylesheet">
 <link href="app/vendor/maplibre-gl.css" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
@@ -79,7 +79,7 @@
       var gap = Math.max(0, screen.height - window.innerHeight); // окно короче экрана?
       var y0 = Math.max(0, window.screenY || 0);                  // окно смещено вниз (под статус-бар)?
       var vv = window.visualViewport;
-      window.__diag = 'v19 ih' + window.innerHeight + ' sh' + screen.height +
+      window.__diag = 'v23 ih' + window.innerHeight + ' sh' + screen.height +
         ' t' + Math.round(top) + ' b' + Math.round(bot) + ' g' + Math.round(gap) +
         ' y' + Math.round(y0) +
         (vv ? ' vv' + Math.round(vv.height) + '+' + Math.round(vv.offsetTop) : '') +
@@ -104,7 +104,7 @@
 </script>
 <div id="splash">
   <div class="logo">Affin</div>
-  <div class="sub">сквозной прототип · v19</div>
+  <div class="sub">сквозной прототип · v23</div>
 </div>
 <div id="errbox"></div>
 
@@ -122,7 +122,7 @@
 
   if ('serviceWorker' in navigator && window.isSecureContext) {
     // ?v= обходит HTTP-кэш GitHub Pages (max-age=600) — новый SW виден сразу
-    navigator.serviceWorker.register('sw.js?v=19').catch(() => {});
+    navigator.serviceWorker.register('sw.js?v=23').catch(() => {});
     // новый SW взял контроль (skipWaiting+claim) → перезагружаемся на свежий кэш.
     // Только если контроллер уже был: на первой установке не дёргаем.
     var hadSW = !!navigator.serviceWorker.controller, reloaded = false;
@@ -147,6 +147,8 @@
 <script type="text/babel" src="app/screens/event.js"></script>
 <script type="text/babel" src="app/screens/cardpicker.js"></script>
 <script type="text/babel" src="app/screens/profile.js"></script>
+<script type="text/babel" src="app/screens/connections.js"></script>
+<script type="text/babel" src="app/screens/createmeetup.js"></script>
 <script type="text/babel" src="app/screens/proto.js"></script>
 <script type="text/babel">
   const { AppRoot } = window;

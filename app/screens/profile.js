@@ -5,14 +5,14 @@ const { T, MARINA, PEOPLE, MY_TARIFF } = window;
 // ═══════════════════════════════════════════════════
 // SCREEN 7: Мой профиль ("Я" tab)
 // ═══════════════════════════════════════════════════
-function ProfileMeScreen({ accent = T.accent, onEdit, onOpenCard, onSettings, onBilling, onAddCard }) {
+function ProfileMeScreen({ accent = T.accent, onEdit, onOpenCard, onSettings, onBilling, onAddCard, onConnections, onCreateMeetup }) {
   const me = MARINA;
   const cards = window.MY_CARDS;
 
   const stats = [
     { n:'146', l:'просмотров' },
     { n:'23',  l:'«интересно»' },
-    { n:'7',   l:'встреч' },
+    { n:'7',   l:'встреч', onClick:onConnections },
   ];
 
   const ACHIEVEMENTS = [
@@ -62,15 +62,19 @@ function ProfileMeScreen({ accent = T.accent, onEdit, onOpenCard, onSettings, on
 
         {/* stats */}
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,marginBottom:20}}>
-          {stats.map((s,i)=>(
-            <div key={i} style={{
-              padding:'13px 8px',borderRadius:14,textAlign:'center',
-              background:T.surface,border:`1px solid ${T.divide}`,
-            }}>
-              <div style={{fontFamily:T.serif,fontSize:24,fontWeight:700,color:T.ink,lineHeight:1}}>{s.n}</div>
-              <div style={{fontFamily:T.mono,fontSize:8.5,color:T.soft,letterSpacing:0.8,textTransform:'uppercase',marginTop:5}}>{s.l}</div>
-            </div>
-          ))}
+          {stats.map((s,i)=>{
+            const Tag = s.onClick ? 'button' : 'div';
+            return (
+              <Tag key={i} onClick={s.onClick} style={{
+                padding:'13px 8px',borderRadius:14,textAlign:'center',width:'100%',
+                background:T.surface,border:`1px solid ${T.divide}`,font:'inherit',
+                cursor: s.onClick ? 'pointer' : 'default',
+              }}>
+                <div style={{fontFamily:T.serif,fontSize:24,fontWeight:700,color:T.ink,lineHeight:1}}>{s.n}</div>
+                <div style={{fontFamily:T.mono,fontSize:8.5,color:T.soft,letterSpacing:0.8,textTransform:'uppercase',marginTop:5}}>{s.l}</div>
+              </Tag>
+            );
+          })}
         </div>
 
         {/* карточки — библиотека */}
@@ -166,6 +170,23 @@ function ProfileMeScreen({ accent = T.accent, onEdit, onOpenCard, onSettings, on
             </div>
           ))}
         </div>
+
+        {/* твои встречи — массовые митапы, создавать может только платный тариф */}
+        <div style={{display:'flex',alignItems:'baseline',justifyContent:'space-between',marginBottom:9,marginTop:4}}>
+          <span style={{fontFamily:T.mono,fontSize:9,color:T.soft,letterSpacing:1.6,textTransform:'uppercase'}}>твои встречи</span>
+          <span style={{fontFamily:T.body,fontSize:11.5,color:T.soft,fontStyle:'italic'}}>доступно на Paid</span>
+        </div>
+        <button onClick={onCreateMeetup} style={{
+          width:'100%',marginBottom:18,padding:'13px 10px',borderRadius:16,cursor:'pointer',
+          border:`1.5px dashed ${T.soft}`,background:'transparent',
+          display:'flex',alignItems:'center',justifyContent:'center',gap:8,
+        }}>
+          <div style={{width:26,height:26,borderRadius:'50%',border:`1.5px dashed ${T.soft}`,
+            display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+            <svg width="11" height="11" viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" stroke={T.soft} strokeWidth="1.6" strokeLinecap="round"/></svg>
+          </div>
+          <span style={{fontFamily:T.sans,fontSize:13.5,fontWeight:600,color:T.soft}}>Новая встреча</span>
+        </button>
 
         <button onClick={onEdit} style={{
           width:'100%',padding:'13px 0',borderRadius:14,border:`1px solid ${T.divide}`,

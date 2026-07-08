@@ -1050,10 +1050,27 @@ function QuestRewardOverlay({ accent, onClose }) {
 }
 
 // ─── Встреча без площадки — текстовое описание, без плана ──
-function MeetupScreen({ accent = T.accent, onBack, onPeople, onOpenPerson, activeCard, onSwitchCard }) {
+// meetup — данные встречи; дефолт воспроизводит исходную демо-встречу «Крипто-завтрак»
+// один в один, чтобы существующие вызовы (карта → QR → митап) не изменились.
+const DEFAULT_MEETUP = {
+  name: 'Крипто-завтрак', live: true,
+  when: 'завтра · 10:00 – 12:00', gather: 'сбор с 9:45',
+  place: 'кафе «Юность»', address: 'Лесная 12',
+  about: 'неформальный завтрак дизайнеров и продактов. без докладов — общий стол, знакомства и разбор работ друг друга. приноси один свой проект: живой, провальный или странный.',
+  format: [
+    'общий стол — кто пришёл, тот и в разговоре',
+    'участники видны в Affin — отмечай «интересно» за столом',
+    'одна тема, свободный разбор',
+  ],
+  total: 52,
+  justCreated: false, // true — только что созданная встреча: единственный участник — организатор
+  onMap: true, // приватность: false — не на карте, доступна только по ссылке «Поделиться»
+};
+
+function MeetupScreen({ accent = T.accent, onBack, onPeople, onOpenPerson, activeCard, onSwitchCard, meetup = DEFAULT_MEETUP }) {
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const TOTAL = 52;
-  const [visibleCount, setVisibleCount] = React.useState(12);
+  const TOTAL = meetup.justCreated ? 1 : meetup.total;
+  const [visibleCount, setVisibleCount] = React.useState(meetup.justCreated ? 1 : 12);
   const [loading, setLoading] = React.useState(false);
   const scrollRef = React.useRef(null);
 
@@ -1084,14 +1101,14 @@ function MeetupScreen({ accent = T.accent, onBack, onPeople, onOpenPerson, activ
         <button onClick={onPeople} aria-label="участники" style={{...chrome, flex:1, height:40, borderRadius:20, padding:'0 12px',
           display:'flex', alignItems:'center', justifyContent:'center', gap:8, minWidth:0, cursor:'pointer'}}>
           <div style={{display:'flex', flexShrink:0}}>
-            {[0,3,5].map((pi, i) => (
+            {(meetup.justCreated ? [MARINA] : [0,3,5].map(pi => PEOPLE[pi])).map((p, i) => (
               <div key={i} style={{width:22, height:22, borderRadius:'50%', overflow:'hidden',
                 border:`1.5px solid ${T.stripRing}`, marginLeft: i ? -7 : 0}}>
-                <img src={PEOPLE[pi].photo} alt="" style={{width:'100%', height:'100%', objectFit:'cover'}}/>
+                <img src={p.photo} alt="" style={{width:'100%', height:'100%', objectFit:'cover'}}/>
               </div>
             ))}
           </div>
-          <span style={{fontFamily:T.serif, fontSize:13.5, fontWeight:700, color:T.ink, whiteSpace:'nowrap'}}>Участники · 52</span>
+          <span style={{fontFamily:T.serif, fontSize:13.5, fontWeight:700, color:T.ink, whiteSpace:'nowrap'}}>Участники · {TOTAL}</span>
         </button>
         <button onClick={() => setMenuOpen(true)} aria-label="меню встречи" style={{...chrome, width:40, height:40, borderRadius:14, flexShrink:0,
           display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer'}}>
@@ -1107,8 +1124,8 @@ function MeetupScreen({ accent = T.accent, onBack, onPeople, onOpenPerson, activ
             boxShadow:'0 16px 40px rgba(0,0,0,0.6)'}}>
             <div style={{padding:'12px 15px 10px', borderBottom:`1px solid ${T.divide2}`,
               display:'flex', alignItems:'center', gap:7}}>
-              <span style={{fontFamily:T.serif, fontSize:14, fontWeight:700, color:T.ink}}>Крипто-завтрак</span>
-              <div style={{width:6, height:6, borderRadius:'50%', background:'#3FB87C', boxShadow:'0 0 5px rgba(63,184,124,0.9)'}}/>
+              <span style={{fontFamily:T.serif, fontSize:14, fontWeight:700, color:T.ink}}>{meetup.name}</span>
+              {meetup.live && <div style={{width:6, height:6, borderRadius:'50%', background:'#3FB87C', boxShadow:'0 0 5px rgba(63,184,124,0.9)'}}/>}
             </div>
             {[
               {t:'Информация', icon:<><circle cx="9" cy="9" r="7" stroke={T.mid} strokeWidth="1.5" fill="none"/><path d="M9 8.5V13M9 5.5v.5" stroke={T.mid} strokeWidth="1.6" strokeLinecap="round"/></>},
@@ -1145,19 +1162,28 @@ function MeetupScreen({ accent = T.accent, onBack, onPeople, onOpenPerson, activ
         )}
 
         {/* заголовок */}
-        <div style={{fontFamily:T.mono, fontSize:9, color:accent, letterSpacing:1.8, textTransform:'uppercase'}}>встреча</div>
+        <div style={{display:'flex', alignItems:'center', gap:8}}>
+          <span style={{fontFamily:T.mono, fontSize:9, color:accent, letterSpacing:1.8, textTransform:'uppercase'}}>встреча</span>
+          {!meetup.onMap && (
+            <span style={{display:'inline-flex', alignItems:'center', gap:4, padding:'2px 8px', borderRadius:7,
+              background:T.hi, border:`1px solid ${T.divide}`}}>
+              <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><rect x="2.5" y="5.5" width="7" height="5" rx="1" stroke={T.soft} strokeWidth="1.2"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5" stroke={T.soft} strokeWidth="1.2"/></svg>
+              <span style={{fontFamily:T.mono, fontSize:7.5, color:T.soft, letterSpacing:0.6, textTransform:'uppercase'}}>не на карте</span>
+            </span>
+          )}
+        </div>
         <div style={{display:'flex', alignItems:'center', gap:8, marginTop:6}}>
-          <span style={{fontFamily:T.serif, fontSize:27, fontWeight:700, color:T.ink, fontStyle:'italic', lineHeight:1.1}}>Крипто-завтрак</span>
-          <div style={{width:7, height:7, borderRadius:'50%', background:'#3FB87C', boxShadow:'0 0 6px rgba(63,184,124,0.9)', flexShrink:0}}/>
+          <span style={{fontFamily:T.serif, fontSize:27, fontWeight:700, color:T.ink, fontStyle:'italic', lineHeight:1.1}}>{meetup.name}</span>
+          {meetup.live && <div style={{width:7, height:7, borderRadius:'50%', background:'#3FB87C', boxShadow:'0 0 6px rgba(63,184,124,0.9)', flexShrink:0}}/>}
         </div>
 
         {/* факты — две компактные строки */}
         <div style={{display:'flex', flexDirection:'column', gap:8, marginTop:16}}>
           {[
             { icon:<><circle cx="9" cy="9" r="7" stroke={accent} strokeWidth="1.5" fill="none"/><path d="M9 5.5V9l2.5 2" stroke={accent} strokeWidth="1.5" strokeLinecap="round"/></>,
-              main:'завтра · 10:00 – 12:00', sub:'сбор с 9:45' },
+              main:meetup.when, sub:meetup.gather },
             { icon:<><path d="M9 16.5C9 16.5 15 11.5 15 7.5a6 6 0 1 0-12 0C3 11.5 9 16.5 9 16.5z" stroke={accent} strokeWidth="1.5" fill="none"/><circle cx="9" cy="7.5" r="2" stroke={accent} strokeWidth="1.5" fill="none"/></>,
-              main:'кафе «Юность»', sub:'Лесная 12' },
+              main:meetup.place, sub:meetup.address },
           ].map((r,i)=>(
             <div key={i} style={{display:'flex', alignItems:'center', gap:11,
               padding:'11px 13px', borderRadius:13, background:T.surface, border:`1px solid ${T.divide}`}}>
@@ -1176,16 +1202,12 @@ function MeetupScreen({ accent = T.accent, onBack, onPeople, onOpenPerson, activ
         {/* о встрече — коротко */}
         <div style={{fontFamily:T.mono, fontSize:9, color:T.soft, letterSpacing:1.6, textTransform:'uppercase', margin:'22px 0 8px'}}>о встрече</div>
         <p style={{fontFamily:T.body, fontSize:15, color:T.mid, lineHeight:1.55, fontStyle:'italic', margin:0}}>
-          неформальный завтрак дизайнеров и продактов. без докладов — общий стол, знакомства и разбор работ друг друга. приноси один свой проект: живой, провальный или странный.
+          {meetup.about}
         </p>
 
-        {/* формат — три пункта */}
+        {/* формат — пункты */}
         <div style={{fontFamily:T.mono, fontSize:9, color:T.soft, letterSpacing:1.6, textTransform:'uppercase', margin:'20px 0 4px'}}>формат</div>
-        {[
-          'общий стол — кто пришёл, тот и в разговоре',
-          'участники видны в Affin — отмечай «интересно» за столом',
-          'одна тема, свободный разбор',
-        ].map((t,i)=>(
+        {meetup.format.map((t,i)=>(
           <div key={i} style={{display:'flex', gap:10, padding:'6px 0', alignItems:'flex-start'}}>
             <div style={{width:5, height:5, borderRadius:'50%', background:accent, marginTop:7, flexShrink:0}}/>
             <span style={{fontFamily:T.sans, fontSize:13.5, color:T.mid, lineHeight:1.45}}>{t}</span>
@@ -1198,7 +1220,7 @@ function MeetupScreen({ accent = T.accent, onBack, onPeople, onOpenPerson, activ
         </div>
         <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:'14px 8px'}}>
           {Array.from({length: visibleCount}, (_, i) => {
-            const p = PEOPLE[[3,0,2,4,5,1,6,7,8,9,10,11][i % 12] % PEOPLE.length];
+            const p = meetup.justCreated ? MARINA : PEOPLE[[3,0,2,4,5,1,6,7,8,9,10,11][i % 12] % PEOPLE.length];
             const isOrg = i === 0;
             return (
               <button key={i} onClick={() => onOpenPerson && onOpenPerson(p)} style={{
@@ -1238,6 +1260,8 @@ function MeetupScreen({ accent = T.accent, onBack, onPeople, onOpenPerson, activ
             </div>
           ) : visibleCount < TOTAL ? (
             <span style={{fontFamily:T.mono, fontSize:9, color:T.soft, letterSpacing:1.2, textTransform:'uppercase'}}>показано {visibleCount} из {TOTAL} · листай</span>
+          ) : meetup.justCreated ? (
+            <span style={{fontFamily:T.body, fontSize:12.5, color:T.soft, fontStyle:'italic'}}>пока только ты — поделись встречей, чтобы собрать людей</span>
           ) : (
             <span style={{fontFamily:T.body, fontSize:12.5, color:T.soft, fontStyle:'italic'}}>все {TOTAL} — тапни человека, чтобы открыть карточку</span>
           )}

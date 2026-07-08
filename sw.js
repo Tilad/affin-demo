@@ -2,7 +2,7 @@
 // App shell предзакэширован при установке; тайлы карты, шрифты и фото кэшируются
 // на лету. Стратегия stale-while-revalidate: офлайн работает из кэша,
 // при живом сервере обновления тихо подтягиваются в фоне.
-const VERSION = 'affin-v19';
+const VERSION = 'affin-v23';
 
 const CORE = [
   './',
@@ -15,10 +15,33 @@ const CORE = [
   'app/screens/tabbar.js', 'app/screens/geo-map.jsx',
   'app/screens/card.js', 'app/screens/map.js', 'app/screens/meet.js',
   'app/screens/result.js', 'app/screens/event.js', 'app/screens/cardpicker.js',
-  'app/screens/profile.js', 'app/screens/proto.js',
+  'app/screens/profile.js', 'app/screens/connections.js', 'app/screens/createmeetup.js', 'app/screens/proto.js',
   'app/avatars/marina.png', 'app/avatars/mikhail.png', 'app/avatars/self5.png',
   'app/avatars/expo-logo.png',
   ...Array.from({ length: 12 }, (_, i) => `app/avatars/p${i + 1}.png`),
+  // шрифты — локальные (были на fonts.googleapis.com, давали вспышку смены
+  // шрифта на лого при холодной сетевой загрузке); только latin+cyrillic
+  'app/vendor/fonts/fonts.css',
+  'app/vendor/fonts/caveat-400-normal-cyrillic.woff2', 'app/vendor/fonts/caveat-400-normal-latin.woff2',
+  'app/vendor/fonts/caveat-700-normal-cyrillic.woff2', 'app/vendor/fonts/caveat-700-normal-latin.woff2',
+  'app/vendor/fonts/inter-300-normal-cyrillic.woff2', 'app/vendor/fonts/inter-300-normal-latin.woff2',
+  'app/vendor/fonts/inter-400-normal-cyrillic.woff2', 'app/vendor/fonts/inter-400-normal-latin.woff2',
+  'app/vendor/fonts/inter-500-normal-cyrillic.woff2', 'app/vendor/fonts/inter-500-normal-latin.woff2',
+  'app/vendor/fonts/inter-600-normal-cyrillic.woff2', 'app/vendor/fonts/inter-600-normal-latin.woff2',
+  'app/vendor/fonts/inter-700-normal-cyrillic.woff2', 'app/vendor/fonts/inter-700-normal-latin.woff2',
+  'app/vendor/fonts/jbmono-400-normal-cyrillic.woff2', 'app/vendor/fonts/jbmono-400-normal-latin.woff2',
+  'app/vendor/fonts/jbmono-500-normal-cyrillic.woff2', 'app/vendor/fonts/jbmono-500-normal-latin.woff2',
+  'app/vendor/fonts/jbmono-700-normal-cyrillic.woff2', 'app/vendor/fonts/jbmono-700-normal-latin.woff2',
+  'app/vendor/fonts/playfair-400-italic-cyrillic.woff2', 'app/vendor/fonts/playfair-400-italic-latin.woff2',
+  'app/vendor/fonts/playfair-400-normal-cyrillic.woff2', 'app/vendor/fonts/playfair-400-normal-latin.woff2',
+  'app/vendor/fonts/playfair-600-italic-cyrillic.woff2', 'app/vendor/fonts/playfair-600-italic-latin.woff2',
+  'app/vendor/fonts/playfair-600-normal-cyrillic.woff2', 'app/vendor/fonts/playfair-600-normal-latin.woff2',
+  'app/vendor/fonts/playfair-700-italic-cyrillic.woff2', 'app/vendor/fonts/playfair-700-italic-latin.woff2',
+  'app/vendor/fonts/playfair-700-normal-cyrillic.woff2', 'app/vendor/fonts/playfair-700-normal-latin.woff2',
+  'app/vendor/fonts/roboto-400-italic-cyrillic.woff2', 'app/vendor/fonts/roboto-400-italic-latin.woff2',
+  'app/vendor/fonts/roboto-400-normal-cyrillic.woff2', 'app/vendor/fonts/roboto-400-normal-latin.woff2',
+  'app/vendor/fonts/roboto-500-normal-cyrillic.woff2', 'app/vendor/fonts/roboto-500-normal-latin.woff2',
+  'app/vendor/fonts/roboto-700-normal-cyrillic.woff2', 'app/vendor/fonts/roboto-700-normal-latin.woff2',
 ];
 
 self.addEventListener('install', e => {

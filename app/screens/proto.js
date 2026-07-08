@@ -6,6 +6,7 @@ const { T, MARINA, MIKHAIL, PEOPLE, MY_CARDS, MY_TARIFF,
         MeetupScreen, ConferenceMapScreen,
         MeetingPreScan, MeetingRunning, ResultScreen,
         ProfileMeScreen, InboxScreen, SettingsScreen, EditProfileScreen, BillingScreen,
+        ConnectionsScreen, BrokerDetail, RequestChatScreen, CreateMeetupScreen,
         TabBar, SwipeStack, CardPickerSheet, OnboardingFlow } = window;
 
 const ONBOARDED_KEY = 'affin-onboarded';
@@ -287,6 +288,14 @@ function PrototypeApp({ accent = T.accent, eventStyle = 'building' }) {
   const openCard = (from) => { setCardFrom(from); setScreen('card'); };
   const [billingFrom, setBillingFrom] = React.useState('me');
   const openBilling = (from) => { setBillingFrom(from); setScreen('billing'); };
+  // связи: автосведение и чат по запросу — полноценные экраны, не локальный стейт
+  const [brokerSuggestion, setBrokerSuggestion] = React.useState(null);
+  const openBroker = (s) => { setBrokerSuggestion(s); setScreen('broker'); };
+  const [chatPerson, setChatPerson] = React.useState(null);
+  const openRequestChat = (p) => { setChatPerson(p); setScreen('request-chat'); };
+  // массовая встреча — создание доступно только платному тарифу (тот же гейт, что у карточек)
+  const [myMeetup, setMyMeetup] = React.useState(null);
+  const handleCreateMeetup = () => { if (MY_TARIFF === 'free') { openBilling('me'); } else { setScreen('create-meetup'); } };
   // мультикарточность
   const [eventCardId, setEventCardId] = React.useState('c1'); // карточка на текущем событии
   const [picker, setPicker] = React.useState(null); // null | 'enter' | 'switch'
@@ -314,6 +323,10 @@ function PrototypeApp({ accent = T.accent, eventStyle = 'building' }) {
       case 'meetup-page':  setScreen('map'); break;
       case 'settings':  setScreen('me'); break;
       case 'edit':      setScreen('me'); break;
+      case 'connections': setScreen('me'); break;
+      case 'broker': case 'request-chat': setScreen('connections'); break;
+      case 'create-meetup': setScreen('me'); break;
+      case 'my-meetup': setScreen('me'); break;
       case 'billing':   setScreen(billingFrom); break;
       case 'inbox': case 'chats': case 'me': setScreen('map'); break;
       case 'map': default:
@@ -485,8 +498,46 @@ function PrototypeApp({ accent = T.accent, eventStyle = 'building' }) {
           onEdit={() => setScreen('edit')}
           onAddCard={() => setScreen('edit')}
           onBilling={() => openBilling('me')}
-          onSettings={() => setScreen('settings')}/>
+          onSettings={() => setScreen('settings')}
+          onConnections={() => setScreen('connections')}
+          onCreateMeetup={handleCreateMeetup}/>
       );
+      break;
+
+    case 'create-meetup':
+      body = (
+        <CreateMeetupScreen accent={accent} onBack={() => setScreen('me')}
+          onCreate={(m) => { setMyMeetup(m); setScreen('my-meetup'); }}/>
+      );
+      break;
+
+    case 'my-meetup':
+      body = (
+        <MeetupScreen accent={accent} meetup={myMeetup} activeCard={eventCard} onSwitchCard={() => setPicker('switch')}
+          onBack={() => setScreen('me')}
+          onOpenPerson={() => openCard('my-meetup')}
+          onPeople={() => {}}/>
+      );
+      break;
+
+    case 'connections':
+      body = (
+        <ConnectionsScreen accent={accent} onBack={() => setScreen('me')}
+          onOpenPerson={() => openCard('connections')}
+          onOpenBroker={openBroker}
+          onOpenChat={openRequestChat}/>
+      );
+      break;
+
+    case 'broker':
+      body = (
+        <BrokerDetail s={brokerSuggestion} accent={accent} onBack={() => setScreen('connections')}
+          onOpenPerson={() => openCard('broker')}/>
+      );
+      break;
+
+    case 'request-chat':
+      body = <RequestChatScreen person={chatPerson} accent={accent} onBack={() => setScreen('connections')}/>;
       break;
 
     case 'billing':
